@@ -73,7 +73,7 @@ class StickManager {
 
       this.stick.on('startup', listener);
       if (!this.stick.open()) {
-        reject(new Error('Stick not found!'))
+        reject(new Error('Unable to open stick.'))
       }
     });
   }

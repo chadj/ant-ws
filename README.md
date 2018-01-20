@@ -4,7 +4,13 @@ ANT-WS is a simple server written in javascript for Node.js that when combined w
 
 ## Prerequisites
 
-The [usb](https://github.com/tessel/node-usb) module is included as a dependency. On Linux, you'll need libudev to build the [usb](https://github.com/tessel/node-usb) module. On Ubuntu/Debian: `sudo apt-get install build-essential libudev-dev`.  On Windows please follow the [instructions](https://github.com/chadj/ant-ws/wiki/Windows-Prerequisites) in the wiki.  No special steps are required on Mac OS.
+The [usb](https://github.com/tessel/node-usb) module is included as a dependency and maybe have special prerequisites depending on your platform.
+##### Windows
+On Windows please follow the [instructions](https://github.com/chadj/ant-ws/wiki/Windows-Prerequisites) in the wiki.  
+##### Mac OS
+No special steps are required on Mac OS.
+##### Linux
+On Linux, you'll need libudev to build the [usb](https://github.com/tessel/node-usb) module. On Ubuntu/Debian: `sudo apt-get install build-essential libudev-dev`.
 
 ## Installation
 
