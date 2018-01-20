@@ -4,7 +4,7 @@ ANT-WS is a simple server written in javascript for Node.js that when combined w
 
 ## Prerequisites
 
-The [usb](https://github.com/tessel/node-usb) module is included as a dependency and maybe have special prerequisites depending on your platform.
+The [usb](https://github.com/tessel/node-usb) module is included as a dependency and may have special prerequisites depending on your platform.
 ##### Windows
 On Windows please follow the [instructions](https://github.com/chadj/ant-ws/wiki/Windows-Prerequisites) in the wiki.  
 ##### Mac OS
