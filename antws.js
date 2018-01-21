@@ -116,7 +116,6 @@ if(argv.help) {
               if(argv.verbose) {
                 console.log(Object.entries(data).map(d => d[0] + ": " + d[1]).join(", "));
               }
-              console.log(JSON.stringify(data));
             });
           }
         }
