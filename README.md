@@ -17,7 +17,7 @@ On Linux, you'll need libudev to build the [usb](https://github.com/tessel/node-
 
 1. Install [Node.js](https://nodejs.org/)
 1. Download and unpack the [ANT-WS](https://github.com/chadj/ant-ws/archive/master.zip) zip file
-1. Open a command prompt and switch directory to the unzipped folder (the folder container the antws.js file)
+1. Open a command prompt and switch directory to the unzipped folder (the folder containing the antws.js file)
 1. Run the command `npm install`
 1. Start the server with `node antws.js`
 
