@@ -1,8 +1,10 @@
 const Ant = require('ant-plus');
+const https = require('https');
 const http = require('http');
 const faye = require('faye');
 const ip = require('ip');
 const parseArgs = require('minimist');
+const selfsigned = require('selfsigned');
 
 const sensors = {
   'hr': {
@@ -79,17 +81,34 @@ class StickManager {
   }
 }
 
-const argv = parseArgs(process.argv.slice(2), {boolean: ['help','verbose'], alias: {p: 'port', h: 'help', v: 'verbose'}, default: {port: 8000}});
+const argv = parseArgs(process.argv.slice(2), {boolean: ['ssl','help','verbose'], alias: {p: 'port', h: 'help', v: 'verbose', secure: 'ssl'}, default: {ssl: false}});
 
 if(argv.help) {
-  console.log("Usage: node antws.js --port 8000\n\nOptions:\n  -h, --help           Command line usage\n  -p, --port           Port to listen on\n  -v, --verbose        Verbose ant+ message logging");
+  console.log("Usage: node antws.js --ssl --port 4430\n\nOptions:\n  -h, --help           Command line usage\n  -p, --port           Port to listen on\n  -v, --verbose        Verbose ant+ message logging\n  --ssl                Enable SSL");
 } else {
-  const server = http.createServer();
+  let server;
+  let proto;
+  if(argv.ssl) {
+    proto = 'https'
+    const attrs = [{ name: 'commonName', value: 'localhost' }];
+    const pems = selfsigned.generate(attrs, { days: 365 });
+    server = https.createServer({key: pems.private, cert: pems.cert});
+    if(argv.port === undefined || argv.port === null) {
+      argv.port = 4430
+    }
+  } else {
+    proto = 'http'
+    server = http.createServer();
+    if(argv.port === undefined || argv.port === null) {
+      argv.port = 8000
+    }
+  }
+
   const bayeux = new faye.NodeAdapter({mount: '/', timeout: 120, ping: 30});
   bayeux.attach(server);
   server.listen(parseInt(argv.port));
 
-  console.log("ANT-WS Server URL: http://" + ip.address() + ":" + parseInt(argv.port) + "/ or http://localhost:" + parseInt(argv.port) + "/");
+  console.log("ANT-WS Server URL: " + proto + "://" + ip.address() + ":" + parseInt(argv.port) + "/ or " + proto + "://localhost:" + parseInt(argv.port) + "/");
   console.log("CTRL-C to exit\n");
 
   const stickManagers = [new StickManager(new Ant.GarminStick3), new StickManager(new Ant.GarminStick2)];

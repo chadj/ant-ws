@@ -25,28 +25,29 @@ On Linux, you'll need libudev to build the [usb](https://github.com/tessel/node-
 
 ```
 $ node antws.js --help
-Usage: node antws.js --port 8000
+Usage: node antws.js --ssl --port 4430
 
 Options:
   -h, --help           Command line usage
   -p, --port           Port to listen on
   -v, --verbose        Verbose ant+ message logging
+  --ssl                Enable SSL
 ```
 
 ## Client Usage
 
 ANT-WS uses [Faye](https://faye.jcoglan.com/) as the underlying transport to relay ANT+ messages to browser based clients.
 
-Include the client script from the ANT-WS server at:  http://localhost:8000/client.js
+Include the client script from the ANT-WS server at:  https://localhost:4430/client.js
 
 ```html
-<script type="text/javascript" src="http://localhost:8000/client.js"></script>
+<script type="text/javascript" src="https://localhost:4430/client.js"></script>
 ```
 
 Subscribe to and receive ant messages
 
 ```javascript
-var client = new Faye.Client('http://localhost:8000/');
+var client = new Faye.Client('https://localhost:4430/');
 client.subscribe('/bike_power', msg => {
     const ant = JSON.parse(msg.text);
 }
